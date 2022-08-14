@@ -1,6 +1,7 @@
 package com.codepath.apps.CodePatherTweets;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -32,6 +33,12 @@ public class TmelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tmeline);
+
+        Toolbar myToolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setLogo(R.drawable.ic_logotweet);
+
+
         client = TwitterApp.getRestClient(this);
         swipeContainer = findViewById(R.id.swipeConotainer);
 
@@ -71,6 +78,8 @@ public class TmelineActivity extends AppCompatActivity {
         rvTweets.addOnScrollListener(scrollListener);
         populateHomeTimeline();
     }
+
+
 
     private void loadMoreData() {
         // 1. Send an API request to retrieve appropriate paginated data

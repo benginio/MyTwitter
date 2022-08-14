@@ -11,16 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.CodePatherTweets.models.Tweet;
 
 import java.util.List;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.viewHolder> {
     @NonNull
-    Context context;
-    List<Tweet> tweets;
+    Context context; //create context
+    List<Tweet> tweets; //inialized list
     // Pass in the context and the list of tweets
 
+    //the Constructor using context and list for parameter
     public TweetsAdapter(Context context,List<Tweet> tweets){
         this.context=context;
         this.tweets=tweets;
@@ -28,6 +31,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.viewHolder
     //for each a row, inflate the layout
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View View = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
         return new viewHolder(View);
     }
@@ -43,7 +47,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.viewHolder
     @Override
     public int getItemCount() {
         return tweets.size();
-    }
+    } //count list
+
+    //for refresh the page
     //Clean all element of recycler view
     public void clear(){
         tweets.clear();
@@ -71,7 +77,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.viewHolder
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            Glide.with(context).load(tweet.user.profileImageUrl)
+                    .centerCrop() // scale image to fill the entire ImageView
+                    .transform(new CenterCrop(), new RoundedCorners(80))
+                    .into(ivProfileImage);
         }
     }
 }
