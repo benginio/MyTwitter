@@ -1,5 +1,7 @@
 package com.codepath.apps.CodePatherTweets.models;
 
+import com.codepath.apps.CodePatherTweets.TimeFormatter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +13,7 @@ public class Tweet {
     public long id;
     public String body;
     public String createdAt;
+    public String getFormattedTimestamp;
     public User user;
     private static JSONObject jsonObject;
 
@@ -27,6 +30,11 @@ public class Tweet {
         return tweet;
 
     }
+    //for the date
+    public String getFormattedTimestamp() {
+
+        return TimeFormatter.getTimeDifference(createdAt);
+    }
     public static List<Tweet> fromJsonArray(JSONArray jsonArray) throws JSONException {
         List<Tweet> tweets = new ArrayList<>();
         for(int i=0; i < jsonArray.length(); i++){
@@ -34,4 +42,5 @@ public class Tweet {
         }
         return  tweets;
     }
+
 }
